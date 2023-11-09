@@ -16,10 +16,11 @@ app.use(cookieParser())
 app.use('/api/user',UserRoutes);
 app.use('/api/auth',AuthRoutes);
 app.use('/api/listing',ListingRoutes);
-app.use(express.static(path.join(__dirname,'/frontend/dist')))
 
+const  ___dirname = path.resolve();
+app.use(express.static(path.join(___dirname,'/frontend/dist')))
 app.get('*',(req,res) => {
-    res.sendFile(path.join(__dirname,'frontend','dist','index.html'))
+    res.sendFile(path.join(___dirname,'frontend','dist','index.html'))
 })
 app.use((err,req,res,next) => {
     const statusCode = err.statusCode || 500;
@@ -34,7 +35,5 @@ app.use((err,req,res,next) => {
     mongoose.connect(process.env.MONGO).then((e) => console.log('Mongo-DB Connected.!!!')).catch((err) => {
         console.log("Error Conteing Mongo ==>",err)
     })
-    //const  __dirname = path.resolve();
 
-
-app.listen(process.env.PORT, () => console.log('Server Start.!!'))
+app.listen(process.env.PORT, () => console.log('Server Start.!!'))  
